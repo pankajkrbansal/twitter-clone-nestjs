@@ -30,5 +30,5 @@ export class PostsController {
   @Put('/:postid/dislike')
   dislikePostById():string{
     return ''
-  }
+  } 
 }
