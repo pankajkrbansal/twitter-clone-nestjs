@@ -1,15 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {ApiTags} from '@nestjs/swagger'
 
 @Controller('users')
 export class UsersController {
+    @ApiTags('users')
     @Get('/@:username')
-    getUserbyUserName(@Param() param):string{
-        return `Fetching Details of User ${param.username}`
+    getUserbyUserName(@Param('username') username:string):string{
+        return `Fetching Details of User ${username}`
     }
 
     @Get('/:userid')
-    getUserByUserId(@Param() param):string{
-        return `Fetching details Of User id = ${param.userid}`
+    getUserByUserId(@Param('userid') userid:string):string{
+        return `Fetching details Of User id = ${userid}`
     }
 
     @Post('/')
@@ -28,12 +30,12 @@ export class UsersController {
     }
 
     @Get('/:userid/followers')
-    getuserFollowers(@Param() param):string{
+    getuserFollowers(@Param('userid') userid:string):string{
         return ''
     }
 
     @Put('/:userid/followees')
-    addUserFollowers(@Param() param):string{
+    addUserFollowers(@Param('userid') userid:string):string{
         return ''
     }
 }
