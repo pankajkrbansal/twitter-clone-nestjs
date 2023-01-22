@@ -4,22 +4,31 @@ import { AppService } from './app.service';
 import { UsersController } from './users/users.controller';
 import { PostsController } from './posts/posts.controller';
 import { HashtagController } from './hashtag/hashtag.controller';
-import {TypeOrmModule} from '@nestjs/typeorm'
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './users/user.entity';
+import { BaseEntity } from './common/base.entity';
+import { PostEntity } from './posts/post.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type:'postgres',
-      host:'localhost',
-      port:5432,
-      username:'postgres',
-      password:'admin',
-      database:'twitterDB',
-      autoLoadEntities:true,
-      synchronize:true
-    })
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'admin',
+      database: 'twitterDB',
+      entities: [UserEntity, BaseEntity, PostEntity],
+      // autoLoadEntities:true,
+      synchronize: true,
+    }),
   ],
-  controllers: [AppController, UsersController, PostsController, HashtagController],
+  controllers: [
+    AppController,
+    UsersController,
+    PostsController,
+    HashtagController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}
