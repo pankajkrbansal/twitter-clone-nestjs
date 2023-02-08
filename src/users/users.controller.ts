@@ -1,12 +1,22 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger'
+import { UserEntity } from './user.entity';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
+
+    constructor(private userService:UsersService){}
+
     @ApiTags('users')
     @Get('/@:username')
-    getUserbyUserName(@Param('username') username:string):string{
-        return `Fetching Details of User ${username}`
+    async getUserbyUserName(@Param('username') username:string):Promise<UserEntity>{
+        // return `Fetching Details of User ${username}`
+        let user = await this.userService.getUserbyUserName(username);
+        if(!user){
+            throw new Error("User not found");
+        }
+        return user; 
     }
 
     @Get('/:userid')
